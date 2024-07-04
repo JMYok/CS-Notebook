@@ -9,7 +9,8 @@ x, st = st[len(st)-1], st[:len(st)-1]
 ```
 ## go 模拟stack（更少切片扩容）
 ```go
-const N = 10tt := 0 //指向栈顶，不是栈顶下一个数；tt表示栈的大小
+const N = 10
+tt := 0 //指向栈顶，不是栈顶下一个数；tt表示栈的大小
 stack := make([]int, N)
 
 // 入栈
@@ -286,7 +287,7 @@ for len(q)>0{
 ```
 最短路
 
-todop
+todo
 
 # 数学问题
 ## 快速幂（各个运算都取余）
