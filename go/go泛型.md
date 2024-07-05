@@ -21,4 +21,7 @@ type MyMap[KEY comparable, VALUE any] map[KEY]VALUE
 ## comparable 可比较指的是?
 可以执行 !=， == 操作的类型，并**没确保**这个类型可以执行大小比较（ >,<,<=,>= ）
 
+# 参考
+- [go-码神之路知识体系](https://mszlu.com/go/new/base/00/00.html)
+- [Go 1.18 泛型全面讲解：一篇讲清泛型的全部](https://juejin.cn/post/7080938405449695268)
 
