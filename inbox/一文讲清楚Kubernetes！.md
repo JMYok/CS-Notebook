@@ -47,6 +47,11 @@ Kubernetes的主要特性包括：
   - 其他container runtime
 - kubelet：和apiserver交互，管理容器
 - kube-proxy：为pod提供网络代理和负载均衡
+### Deployment、Replicaset、pod的关系
+- pod一般不会单独创建，而是通过创建deployment，k8s帮我们自动创建pod
+- Relicaset管理pod的副本数量
+- deployment管理replicaset，relicaset管理pod。
+![](https://pic.imgdb.cn/item/668ff0f6d9c307b7e9ba6355.png)
 
 ## Master Node
 ### api-server
