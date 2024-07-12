@@ -69,6 +69,18 @@ Kubernetes的主要特性包括：
 ### cloud controller manager
 - 负责与云平台api交互。
 
+## 其余核心概念
+### service
+Service 提供了一个或者多个 Pod 实例的稳定访问地址。
+
+因为一个deployment可能会部署多个pod，pod可能销毁和替换，对于外部用户来说，只希望访问到一个稳定的ip，至于是哪个pod服务，外部用户并不关心。
+### Volumn
+一个存储抽象概念，定义pod中容器可以访问的文件目录。
+![](https://pic.imgdb.cn/item/6690a24cd9c307b7e9e6b218.png)
+### namespace
+在集群内做资源隔离。
+例如不同namespace都有自己的pod、deployment和service。
+![](https://pic.imgdb.cn/item/6690a2f7d9c307b7e9e85b53.png)
 
 
 # 参考资料
