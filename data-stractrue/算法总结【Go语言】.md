@@ -251,22 +251,33 @@ func main() {
 
 # 图论
 ## 邻接表构图
+hint:
+ - 适合bfs遍历
+
+**给字符串编号构图：**
 ```go
-// 对于每个点k，开一个单链表，存储k所有可以走到的点。h[k]存储这个单链表的头结点
-var h[N], e[N], ne[N], idx int;
-
-// 添加一条边a->b
-func add(a int, b int){
-    e[idx] = b,
-    ne[idx] = h[a]
-    h[a] = idx++
+hash:=map[string]int{}
+graph:=[][]int{}
+addWord:=func(word string) int{
+    var idx int
+    var ok bool
+    if idx,ok =hash[word];!ok{
+        idx = len(hash)
+        hash[word]=idx
+        graph = append(graph, []int{})
+    }
+    return idx
 }
-
-// 初始化
-for i:= range h{
-    h[i]=-1
+addEdge:=func(word1,word2 string){
+    idx1:= addWord(word1)
+    idx2:= addWord(word2)
+    graph[idx1] = append(graph[idx1],idx2)
+    graph[idx2] = append(graph[idx2],idx1)
 }
 ```
+优点：
+- 比用map建立字符串图，更节省空间。
+练习：[127. 单词接龙](https://leetcode.cn/problems/word-ladder/submissions/546163992/?envType=study-plan-v2&envId=top-interview-150)
 
 ## 基于领接链表的DFS
 ```go
