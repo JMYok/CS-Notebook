@@ -38,7 +38,8 @@ HTTP/2 没使用常见的 gzip 压缩方式来压缩头部，而是开发了 HPA
 ![](https://pic.imgdb.cn/item/6694b450d9c307b7e9f9c6f2.png)
 
 # 二进制帧
-
+- HTTP/2 厉害的地方在于将 HTTP/1 的文本格式改成二进制格式传输数据，极大提高了 HTTP 传输效率，而且二进制数据使用位运算能高效解析。
+![](https://pic.imgdb.cn/item/6694b6c1d9c307b7e9fcc0e9.png)
 # 并发传输
 
 # 服务器主动推送资源
