@@ -116,6 +116,24 @@ func main(){
     }
 ```
 # 字符串相关
+## 字符串拼接
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	var b strings.Builder
+	for i := 3; i >= 1; i-- {
+	    fmt.Fprintf(&b, "%d...", i)
+	}
+    b.WriteString("ignition")
+    fmt.Println(b.String())
+}
+```
 ## 判断大小写
 ### 通常的办法
 ```go
@@ -136,6 +154,13 @@ func main() {
     fmt.Println(cntUpper)
 }
 ```
+### 大小写互转
+#### 字符计算
+- CHAR + 32
+- char - 32
+#### strings包
+- strings.ToLower
+- strings.ToUpper
 ## 大数运算
 ### 大数减法
 将字符数组转换为[]int数组
