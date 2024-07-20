@@ -202,9 +202,86 @@ Makefile  hello_world.c  say.c  say.h
 ```
 清理编译结果在打包源码、进行全新编译等场景特别有用。
 # 程序库
+可复用的代码，一般编译成程序库来使用。 程序库可以分成两种：
+- 静态链接库
+- 动态链接库
 ## 静态库
+静态库的全称是静态链接程序库，在程序编译阶段被链接进可执行程序。
 
+接下来，我们将 say.c 编译成一个静态库，以此演示制作并使用静态库的方法。
+
+进入 static-library 目录：
+```shell
+$ cd static-library
+$ ls
+hello_world.c  say.c  say.h
+```
+编译 say.c ：
+```shell
+$ gcc -c say.c
+$ ls
+hello_world.c  say.c  say.h  say.o
+```
+将目标文件打包成静态库，库名为 libsay.a ：
+```shell
+$ ar -crv libsay.a say.o
+a - say.o
+$ ls
+hello_world.c  libsay.a  say.c  say.h  say.o
+```
+编译 hello_world.c 时指定链接静态库：
+```shell
+$ gcc -o hello_world hello_world.c libsay.a
+$ ./hello_world
+Hello, world!
+```
 ## 动态库
+对应地，动态库的全称是**动态链接程序库**。
+
+与静态库不同，动态库不链接进可执行程序。 相反，**程序只记录需要的动态库，直到运行时才搜索并加载**。 因此，采用动态库的程序，编译后生成的可执行文件更为短小。
+
+接下来，我们将 say.c 编译成一个动态库，以此演示制作并使用动态库的方法。
+进入 dynamic-library 目录：
+```shell
+$ cd dynamic-library
+$ ls
+hello_world.c  say.c  say.h
+```
+编译 say.c ：
+```shell
+$ gcc -fPIC -c say.c
+$ ls
+hello_world.c  say.c  say.h  say.o
+```
+注意到，通过 -fPIC 告诉 gcc 生成**位置无关代码( Position-Independent Code )**。 这是制作动态库所必须的。
+
+使用 **gcc 生成动态库( -shared )，库名为 libsay.so**：
+```shell
+$ gcc -shared -o libsay.so say.o
+$ ls
+hello_world.c  libsay.so  say.c  say.h  say.o
+```
+在编译 hello_world.c 时，链接到生成的动态库：
+```shell
+$ gcc -o hello_world hello_world.c -L. -lsay
+```
+其中，选项 **-L 指定动态库搜索路径**； **-l 指定需要链接的动态库名，可以多次指定**。
+
+好了，启动程序。然而，程序异常退出了：
+```shell
+$ ./hello_world
+./hello_world: error while loading shared libraries: libsay.so: cannot open shared object file: No such file or directory
+```
+原因是程序启动后找不到 libsay.so 动态库文件。
+
+系统默认在 /lib 、 /usr/lib 等路径下搜索动态库。 因此，可以将生成的动态库放置到上述目录再运行程序。
+
+另一种方法是，通过 LD_LIBRARY_PATH 环境变量指定动态库搜索路径：
+```shell
+$ LD_LIBRARY_PATH=. ./hello_world
+Hello, world!
+```
+
 
 # 参考
 - [C/C++ 开发环境(终端)](https://linux.fasionchan.com/zh_CN/latest/development-environment/c-cpp.html)
