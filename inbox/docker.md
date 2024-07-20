@@ -66,4 +66,5 @@ int main()
 
 # 参考
 - https://www.bilibili.com/video/BV14s4y1i7Vf
+- [DOCKER基础技术：LINUX NAMESPACE（上）](https://coolshell.cn/articles/17010.html)
   
