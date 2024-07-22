@@ -491,30 +491,58 @@ func partition(array []int, startIndex int, endIndex int) int {
 }
 ```
 
-### 自定义排序逻辑
+### Int和Float类型排序
+#### sort包
 ```go
-type Sorter interface {
-    Len() int
-    Less(i, j int) bool
-    Swap(i, j int)
-}
+func main() {
+	s := []int{5, 2, 6, 3, 1, 4} // unsorted
+	sort.Ints(s) 
+	fmt.Println(s)
 
-type pair struct {
-    target  string
-    visited bool
-}
-type pairs []*pair
-
-func (p pairs) Len() int {
-    return len(p)
-}
-func (p pairs) Swap(i, j int) {
-    p[i], p[j] = p[j], p[i]
-}
-func (p pairs) Less(i, j int) bool {
-    return p[i].target < p[j].target
+    s := []float64{5.2, -1.3, 0.7, -3.8, 2.6} // unsorted
+	sort.Float64s(s)
+	fmt.Println(s)
 }
 ```
+#### slices包
+```go
+func main() {
+	smallInts := []int8{0, 42, -10, 8}
+	slices.Sort(smallInts)
+	fmt.Println(smallInts)
+}
+```
+
+### 自定义排序逻辑
+#### sort包
+```go
+func main() {
+	people := []struct {
+		Name string
+		Age  int
+	}{
+		{"Gopher", 7},
+		{"Alice", 55},
+		{"Vera", 24},
+		{"Bob", 75},
+	}
+	sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
+	fmt.Println("By name:", people)
+
+	sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
+	fmt.Println("By age:", people)
+}
+```
+#### slices包
+```go
+names := []string{"Bob", "alice", "VERA"}
+slices.SortFunc(names, func(a, b string) int {
+    return cmp.Compare(strings.ToLower(a), strings.ToLower(b))
+})
+fmt.Println(names)
+```
+> This sort is not guaranteed to be stable. cmp(a, b) should return a negative number when a < b, a positive number when a > b and zero when a == b.
+
 # DP
 ## 01背包、完全背包
 ### 题目变形
