@@ -543,6 +543,14 @@ fmt.Println(names)
 ```
 > This sort is not guaranteed to be stable. cmp(a, b) should return a negative number when a < b, a positive number when a > b and zero when a == b.
 
+##### 字符串排序
+```go
+bArray:=[]byte(str)
+slices.SortFunc(bArray, func(a, b byte) int {
+    return cmp.Compare(a, b)
+})
+```
+
 # DP
 ## 01背包、完全背包
 ### 题目变形
