@@ -1,5 +1,4 @@
 # Go-Zero 
-[官网](https://go-zero.dev/)
 ## goctl安装
 
 goctl 是 go-zero 的内置脚手架，是提升开发效率的一大利器，可以一键生成代码、文档、部署 k8s yaml、dockerfile 等。
@@ -46,3 +45,11 @@ $ go get -u github.com/zeromicro/go-zero@latest
 ```
 ## goctl-vscode 安装
 打开 Visual Studio Code | Extensions，搜索 goctl，点击 install 安装。
+## 架构图
+![](https://pic.imgdb.cn/item/66a652c3d9c307b7e906e935.png)
+- api层看做一个聚合层，将各个service层的结果聚合起来返回给客户端。项目较小的时候，api层直接和数据库交互，上微服务之后，api层将各个rpc的结果聚合。
+
+
+# 参考
+- https://go-zero.dev/
+- https://www.bilibili.com/video/BV1LS4y1U72n
