@@ -134,6 +134,15 @@ func main() {
     fmt.Println(b.String())
 }
 ```
+## 字符与数字互转
+```go
+if num,err:=strconv.Atoi(str);err==nil{
+    ...
+}
+if str,err:=strconv.ItoA(num);err==nil{
+    ...
+}
+```
 ## 判断大小写
 ### 通常的办法
 ```go
