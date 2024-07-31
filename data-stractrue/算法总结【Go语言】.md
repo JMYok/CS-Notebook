@@ -134,6 +134,26 @@ func main() {
     fmt.Println(b.String())
 }
 ```
+## 字符替换
+```go
+// 替换全部空格
+strings.ReplaceAll(s," ","")
+// 替换n个
+strings.Replace("oink oink oink", "k", "ky", 2)
+// oinky oinky oink
+```
+
+```go
+// 清除左右符号strings.TrimLeft,strings.TrimRight同理
+strings.Trim("¡¡¡Hello, Gophers!!!", "!¡")
+//Hello, Gophers
+
+//清除空格
+strings.TrimSpace(" \t\n Hello, Gophers \n\t\r\n")
+//Hello, Gophers
+
+```
+
 ## 字符与数字互转
 ```go
 if num,err:=strconv.Atoi(str);err==nil{
