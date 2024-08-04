@@ -8,7 +8,7 @@ type Mutex struct {
 }
 ```
 # 状态
-![](https://pic.imgdb.cn/item/6697ca16d9c307b7e98691f5.png)
+![mutex_state](mutex_state.png)
 在默认情况下，互斥锁的所有状态位都是 0。
 - waitersCount — 当前互斥锁上等待的 Goroutine 个数。
 - mutexStarving — 当前的互斥锁进入饥饿状态；
