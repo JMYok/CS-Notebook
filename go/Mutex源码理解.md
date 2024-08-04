@@ -25,3 +25,16 @@ type Mutex struct {
   - 如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于1ms，那么当前的互斥锁就会切换回正常模式。
 
 # 加锁解锁原理
+## 加锁
+- 如果互斥锁处于初始化状态，会通过置位 mutexLocked 加锁；
+- 如果互斥锁处于 mutexLocked 状态并且在普通模式下工作，会进入自旋，执行 30 次 PAUSE 指令消耗 CPU 时间等待锁的释放；
+- 如果当前 Goroutine 等待锁的时间超过了 1ms，互斥锁就会切换到饥饿模式；
+- 互斥锁在正常情况下会通过 runtime.sync_runtime_SemacquireMutex 将尝试获取锁的 Goroutine 切换至休眠状态，等待锁的持有者唤醒；
+- 如果当前 Goroutine 是互斥锁上的最后一个等待的协程或者等待的时间小于 1ms，那么它会将互斥锁切换回正常模式；
+## 解锁
+- 当互斥锁已经被解锁时，调用 sync.Mutex.Unlock 会直接抛出异常；
+- 当互斥锁处于饥饿模式时，将锁的所有权交给队列中的下一个等待者，等待者会负责设置 mutexLocked 标志位；
+- 当互斥锁处于普通模式时，如果没有 Goroutine 等待锁的释放或者已经有被唤醒的 Goroutine 获得了锁，会直接返回；在其他情况下会通过 sync.runtime_Semrelease 唤醒对应的 Goroutine。
+
+# 参考
+- https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/#mutex
